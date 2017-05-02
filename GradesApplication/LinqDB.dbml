@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="StudentManagementSystem" Class="LinqDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\StudentManagementSystem.mdf;Integrated Security=True" SettingsObjectName="GradesApplication.Properties.Settings" SettingsPropertyName="StudentManagementSystemConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Subject" Member="Subjects">
+    <Type Name="Subject">
+      <Column Name="SubjectID" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjectName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LecturerID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Subject_Grade" Member="Grades" ThisKey="SubjectID" OtherKey="SubjectID" Type="Grade" />
+      <Association Name="Lecturer_Subject" Member="Lecturer" ThisKey="LecturerID" OtherKey="LecturerID" Type="Lecturer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student" Member="Students">
+    <Type Name="Student">
+      <Column Name="StudentID" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DateEntered" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Student_Grade" Member="Grades" ThisKey="StudentID" OtherKey="StudentID" Type="Grade" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lecturer" Member="Lecturers">
+    <Type Name="Lecturer">
+      <Column Name="LecturerID" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DateEntered" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Lecturer_Subject" Member="Subjects" ThisKey="LecturerID" OtherKey="LecturerID" Type="Subject" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grades" Member="Grades">
+    <Type Name="Grade">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Grade" Member="Grade1" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="DateEntered" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StudentID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Student_Grade" Member="Student" ThisKey="StudentID" OtherKey="StudentID" Type="Student" IsForeignKey="true" />
+      <Association Name="Subject_Grade" Member="Subject" ThisKey="SubjectID" OtherKey="SubjectID" Type="Subject" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
